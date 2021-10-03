@@ -1,12 +1,13 @@
 package za.ac.nwu.as.domain.service;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class GeneralResponse<T> {
+public class GeneralResponse<T> implements Serializable {
 
     private String message;
 
-    private Boolean success;
+    private boolean success;
 
     private T response;
 
@@ -49,11 +50,11 @@ public class GeneralResponse<T> {
         this.message = message;
     }
 
-    public Boolean getSuccess() {
+    public boolean getSuccess() {
         return success;
     }
 
-    public void setSuccess(Boolean success) {
+    public void setSuccess(boolean success) {
         this.success = success;
     }
 
