@@ -2,17 +2,27 @@ package za.ac.nwu.as.domain.persistance;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="AccountTypes")
 public class AccountType {
+
+  private String id;
+  private String accountType;
+  private Set<Account> account;
+
+
+  public AccountType() {
+  }
+
+  public AccountType(String id, String accountType, Set<Account> account) {
+    this.id = id;
+    this.accountType = accountType;
+    this.account = account;
+  }
   @Id
   @Column(name = "Id")
-  private String id;
-  @Column(name="AccountType")
-  private String accountType;
-
-
   public String getId() {
     return id;
   }
@@ -21,7 +31,7 @@ public class AccountType {
     this.id = id;
   }
 
-
+  @Column(name="AccountType")
   public String getAccountType() {
     return accountType;
   }
@@ -30,32 +40,12 @@ public class AccountType {
     this.accountType = accountType;
   }
 
-  public AccountType() {
+  @OneToMany(targetEntity = Account.class, fetch = FetchType.LAZY, mappedBy = "account", orphanRemoval = true,cascade = CascadeType.PERSIST)
+  public Set<Account> getAccount() {
+    return account;
   }
 
-  public AccountType(String id, String accountType) {
-    this.id = id;
-    this.accountType = accountType;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    AccountType that = (AccountType) o;
-    return Objects.equals(id, that.id) && Objects.equals(accountType, that.accountType);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, accountType);
-  }
-
-  @Override
-  public String toString() {
-    return "AccountType{" +
-            "id='" + id + '\'' +
-            ", accountType='" + accountType + '\'' +
-            '}';
+  public void setAccount(Set<Account> account) {
+    this.account = account;
   }
 }

@@ -1,1 +1,4 @@
-za\ac\nwu\as\domain\persistance\AccountData.class
+za\ac\nwu\as\domain\service\GeneralResponse.class
+za\ac\nwu\as\domain\persistance\Account.class
+za\ac\nwu\as\domain\persistance\AccountType.class
+za\ac\nwu\as\domain\persistance\User.class
