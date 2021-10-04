@@ -87,7 +87,7 @@ public class AccountController {
         return new ResponseEntity<>(success, HttpStatus.OK);
     }
 
-    @GetMapping("/SpendAccountPoints")
+    @PostMapping("/SpendAccountPoints")
     @ApiOperation(value = "Spends an account's points", notes = "This will spend points from specified account")
     @ApiResponses(value = {
     @ApiResponse(code = 200, message = "Accounts where found", response = GeneralResponse.class),
