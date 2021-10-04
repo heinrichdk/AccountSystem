@@ -1,13 +1,10 @@
 package za.ac.nwu.as.translator;
 
-import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import za.ac.nwu.as.domain.dto.AccountDto;
 import za.ac.nwu.as.domain.dto.UserDto;
+import za.ac.nwu.as.domain.persistance.Account;
 import za.ac.nwu.as.domain.persistance.User;
+import za.ac.nwu.as.repo.persistence.AccountRepository;
 import za.ac.nwu.as.repo.persistence.UserRepository;
 
 
@@ -16,6 +13,7 @@ import java.util.*;
 public class Translator {
 
     private UserRepository userRepo;
+    private AccountRepository accountRepo;
 
     public  List<UserDto> getAllUsers()
     {
@@ -31,4 +29,32 @@ public class Translator {
         return dto;
     }
 
+    public  List<AccountDto>getUserAccounts(String UserId)
+    {
+        List<Account> userAccounts = accountRepo.findByUser_Id(UserId);
+        List<AccountDto> dto = new ArrayList<>();
+        for (Account acc: userAccounts
+        ) {
+            var accountTypeName = acc.getAccountType().getAccountType();
+            var accountDto = new AccountDto(acc.getId(), accountTypeName, acc.getAccountValue() );
+            dto.add(accountDto);
+        }
+        return dto;
+    }
+
+    public void AddPoints(String accountId, double value) {
+        Account acc = accountRepo.getOne(accountId);
+        acc.setAccountValue(value);
+        accountRepo.save(acc);
+    }
+    public void SpendPoints(String accountId, double value) {
+        Account acc = accountRepo.getOne(accountId);
+        acc.setAccountValue(value);
+        accountRepo.save(acc);
+    }
+
+    public double GetPoints(String accountId) {
+        Account acc = accountRepo.getOne(accountId);
+        return acc.getAccountValue();
+    }
 }

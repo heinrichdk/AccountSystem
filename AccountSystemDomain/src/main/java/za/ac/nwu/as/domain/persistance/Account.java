@@ -9,7 +9,7 @@ public class Account {
 
   private String id;
   private AccountType accountType;
-  private String accountValue;
+  private Double accountValue;
   private User user;
 
   @Id
@@ -24,30 +24,30 @@ public class Account {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "AccountTypeFk")
-  public AccountType getAccountTypeFk() {
+  public AccountType getAccountType() {
     return accountType;
   }
 
-  public void setAccountTypeFk(AccountType accountType) {
+  public void setAccountType(AccountType accountType) {
     this.accountType = accountType;
   }
 
   @Column(name = "AccountValue")
-  public String getAccountValue() {
+  public Double getAccountValue() {
     return accountValue;
   }
 
-  public void setAccountValue(String accountValue) {
+  public void setAccountValue(Double accountValue) {
     this.accountValue = accountValue;
   }
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "UserFK")
-  public User getUserFk() {
+  public User getUser() {
     return user;
   }
 
-  public void setUserFk(User user) {this.user = user;}
+  public void setUser(User user) {this.user = user;}
 
   @Override
   public String toString() {
@@ -72,7 +72,7 @@ public class Account {
     return Objects.hash(id, accountType, accountValue, user);
   }
 
-  public Account(String id, AccountType accountType, String accountValue, User user) {
+  public Account(String id, AccountType accountType, Double accountValue, User user) {
     this.id = id;
     this.accountType = accountType;
     this.accountValue = accountValue;
